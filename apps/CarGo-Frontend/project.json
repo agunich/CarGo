@@ -1,0 +1,94 @@
+{
+  "name": "CarGo-Frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/CarGo-Frontend/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/CarGo-Frontend",
+        "index": "apps/CarGo-Frontend/src/index.html",
+        "browser": "apps/CarGo-Frontend/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/CarGo-Frontend/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/CarGo-Frontend/public"
+          }
+        ],
+        "styles": ["apps/CarGo-Frontend/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/CarGo-Frontend/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/CarGo-Frontend/src/server.ts"
+        },
+        "outputMode": "server"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "CarGo-Frontend:build:production"
+        },
+        "development": {
+          "buildTarget": "CarGo-Frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "CarGo-Frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/CarGo-Frontend/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "CarGo-Frontend:build",
+        "staticFilePath": "dist/apps/CarGo-Frontend/browser",
+        "spa": true
+      }
+    }
+  }
+}
