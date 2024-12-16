@@ -2,7 +2,7 @@
   "name": "CarGo-Frontend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "ecom",
   "sourceRoot": "apps/CarGo-Frontend/src",
   "tags": [],
   "targets": {
@@ -44,12 +44,24 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/CarGo-Frontend/src/environments/environment.ts",
+              "with": "apps/CarGo-Frontend/src/environments/environment.production.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/CarGo-Frontend/src/environments/environment.ts",
+              "with": "apps/CarGo-Frontend/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
